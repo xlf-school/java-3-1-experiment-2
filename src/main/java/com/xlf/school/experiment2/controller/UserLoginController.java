@@ -33,11 +33,10 @@ public class UserLoginController extends HttpServlet {
         String getBody = req.getReader().readLine();
         HashMap<String, String> getData = gson.fromJson(getBody, new TypeToken<>() {
         });
-        System.out.println("username: " + getData.get("username") + ", password: " + getData.get("password"));
+        log.info("username: " + getData.get("username") + ", password: " + getData.get("password"));
         // 模拟数据库部分数据，支持用户 xiao_lfeng 以及 debug
         if ("xiao_lfeng".equals(getData.get("username"))) {
             if ("20040227".equals(getData.get("password"))) {
-                // 设置 Cookie
                 resp.getWriter().print(
                         new Gson().toJson(
                                 new BaseResponse()
@@ -51,12 +50,11 @@ public class UserLoginController extends HttpServlet {
                                 new BaseResponse()
                                         .setOutput("Fail")
                                         .setCode(400)
-                                        .setMessage("密码错误")
+                                        .setMessage("登录失败")
                         ));
             }
         } else if ("debug".equals(getData.get("username"))) {
             if ("123456".equals(getData.get("password"))) {
-                // 设置 Cookie
                 resp.getWriter().print(
                         new Gson().toJson(
                                 new BaseResponse()
@@ -70,7 +68,7 @@ public class UserLoginController extends HttpServlet {
                                 new BaseResponse()
                                         .setOutput("Fail")
                                         .setCode(400)
-                                        .setMessage("密码错误")
+                                        .setMessage("登录失败")
                         ));
             }
         } else {
